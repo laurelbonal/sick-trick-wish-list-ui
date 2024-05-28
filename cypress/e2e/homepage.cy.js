@@ -21,6 +21,10 @@ describe('Tricks App', () => {
       });
     }).as('postTrick');
 
+    cy.intercept('DELETE', 'http://localhost:3001/api/v1/tricks/*', {
+      statusCode: 204,
+    }).as('deleteTrick');
+
     cy.visit('http://localhost:3000');
   });
 
@@ -46,5 +50,18 @@ describe('Tricks App', () => {
     cy.get('.trick-card').last().should('contain', 'Stairs');
     cy.get('.trick-card').last().should('contain', 'Switch');
     cy.get('.trick-card').last().should('contain', 'https://example.com/heelflip');
+  });
+
+  it('deletes a trick', () => {
+    cy.wait('@getTricks');
+    cy.get('.trick-card').should('have.length', 2);
+    cy.get('.trick-card').first().should('contain', 'Ollie');
+
+    // Delete the first trick
+    cy.get('.trick-card').first().find('button').click();
+    cy.wait('@deleteTrick');
+
+    cy.get('.trick-card').should('have.length', 1);
+    cy.get('.trick-card').should('not.contain', 'Ollie');
   });
 });

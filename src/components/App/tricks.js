@@ -18,7 +18,7 @@ const Tricks = ({ data, removeTrickFromState }) => {
     <div className='trick-list'>
       {data.map(trick => (
         <div className='trick-card' key={trick.id}>
-          <h2>{trick.name}</h2>
+          <h2>{trick.stance} {trick.name}</h2>
           <p>Obstacle: {trick.obstacle}</p>
           <p>Link to tutorial: <a href={trick.tutorial} target="_blank" rel="noopener noreferrer">{trick.tutorial}</a></p>
           <button onClick={() => handleDelete(trick.id)}>X</button>

@@ -1,0 +1,32 @@
+.trick-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 16px;
+  }
+  
+  .trick-form label {
+    display: flex;
+    flex-direction: column;
+    font-weight: bold;
+  }
+  
+  .trick-form input, .trick-form select {
+    padding: 8px;
+    margin-top: 4px;
+    font-size: 16px;
+  }
+  
+  .trick-form button {
+    padding: 10px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-top: 12px;
+  }
+  
+  .trick-form button:hover {
+    background-color: #45a049;
+  }

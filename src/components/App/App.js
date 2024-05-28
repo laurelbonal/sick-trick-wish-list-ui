@@ -5,30 +5,34 @@ import { fetchTricks } from './apiCalls';
 import './App.css';
 
 const App = () => {
-    const [tricks, setTricks] = useState([]);
+  const [tricks, setTricks] = useState([]);
 
-    useEffect(() => {
-        fetchTricks()
-            .then(data => {
-                setTricks(data);
-            });
-    }, []);
+  useEffect(() => {
+    fetchTricks()
+      .then(data => {
+        setTricks(data);
+      });
+  }, []);
 
-    const addTrick = (newTrick) => {
-        setTricks([...tricks, newTrick]);
-    };
+  const addTrickToState = (newTrick) => {
+    setTricks(prevTricks => [...prevTricks, newTrick]);
+  };
 
-    return (
-        <div className="App">
-            <header className="App-header">
-                <h1>Sick Trick Wish List</h1>
-            </header>
-            <main>
-                <TrickForm addTrick={addTrick} />
-                <Tricks data={tricks} />
-            </main>
-        </div>
-    );
-}
+  const removeTrickFromState = (id) => {
+    setTricks(prevTricks => prevTricks.filter(trick => trick.id !== id));
+  };
+
+  return (
+    <div className="App">
+      <header className="App-header">
+        <h1>Sick Trick Wish List</h1>
+      </header>
+      <main>
+        <TrickForm addTrickToState={addTrickToState} />
+        <Tricks data={tricks} removeTrickFromState={removeTrickFromState} />
+      </main>
+    </div>
+  );
+};
 
 export default App;

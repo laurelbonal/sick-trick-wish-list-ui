@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import { addTrick } from './apiCalls';
 import './trickForm.css';
 
-const TrickForm = ({ addTrick }) => {
+const TrickForm = ({ addTrickToState }) => {
     const [formState, setFormState] = useState({
         stance: 'Regular',
         name: '',
@@ -23,13 +24,16 @@ const TrickForm = ({ addTrick }) => {
             id: Date.now(),
             ...formState
         };
-        addTrick(newTrick);
-        setFormState({
-            stance: 'Regular',
-            name: '',
-            obstacle: 'Flatground',
-            tutorial: ''
-        });
+        addTrick(newTrick)
+            .then(addedTrick => {
+                addTrickToState(addedTrick);
+                setFormState({
+                    stance: 'Regular',
+                    name: '',
+                    obstacle: 'Flatground',
+                    tutorial: ''
+                });
+            });
     };
 
     return (
